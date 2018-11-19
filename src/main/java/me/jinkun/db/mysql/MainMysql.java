@@ -16,14 +16,14 @@ import java.util.Map;
 public class MainMysql {
     public static void main(String[] args) throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.20.126:3306/rap", "root", "123456");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/activiti", "root", "root");
 
         List<Map> tableList = getTableList(conn);
 
         conn.close();
 
         FtUtil ftUtil = new FtUtil();
-        Map map = new HashMap<>();
+        Map map = new HashMap<String,Object>();
         map.put("table", tableList);
 
         ftUtil.generateFile("/", "moban.xml", map, "D:/", "scott.doc");
@@ -38,7 +38,7 @@ public class MainMysql {
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            Map map = new HashMap<>();
+            Map map = new HashMap<String,Object>();
             String TABLE_NAME = rs.getString("NAME");
             String COMMENTS = rs.getString("COMMENT");
             map.put("TABLE_NAME", TABLE_NAME);
@@ -71,7 +71,7 @@ public class MainMysql {
         //ps.setString(1, tableName);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            Map map = new HashMap<>();
+            Map map = new HashMap<String,Object>();
 
             String COLUMN_NAME = rs.getString("FIELD");
             String DATA_TYPE = rs.getString("TYPE");//varchar(200)

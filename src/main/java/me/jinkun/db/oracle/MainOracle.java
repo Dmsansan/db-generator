@@ -1,6 +1,7 @@
 package me.jinkun.db.oracle;
 
 
+import javafx.beans.binding.ObjectExpression;
 import me.jinkun.db.utils.FtUtil;
 
 import java.sql.*;
@@ -22,7 +23,7 @@ public class MainOracle {
         conn.close();
 
         FtUtil ftUtil = new FtUtil();
-        Map map = new HashMap<>();
+        Map map = new HashMap<String, Object>();
         map.put("table", tableList);
 
         ftUtil.generateFile("/", "moban.xml", map, "D:/", "scott.doc");
@@ -37,7 +38,7 @@ public class MainOracle {
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            Map map = new HashMap<>();
+            Map map = new HashMap<String,Object>();
             String TABLE_NAME = rs.getString("TABLE_NAME");
             String COMMENTS = rs.getString("COMMENTS");
             map.put("TABLE_NAME", TABLE_NAME);
@@ -113,7 +114,7 @@ public class MainOracle {
         ps.setString(1, tableName);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            Map map = new HashMap<>();
+            Map map = new HashMap<String,Object>();
 
             String COLUMN_NAME = rs.getString("COLUMN_NAME");
             String DATA_TYPE = rs.getString("DATA_TYPE");//VARCHAR2
